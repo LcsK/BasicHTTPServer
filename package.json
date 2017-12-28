@@ -1,0 +1,19 @@
+{
+  "name": "basichttpserver",
+  "version": "1.0.0",
+  "description": "A sample of a basic HTTP Server using Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasaferrlopes/BasicHTTPServer.git"
+  },
+  "author": "Lucas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasaferrlopes/BasicHTTPServer/issues"
+  },
+  "homepage": "https://github.com/lucasaferrlopes/BasicHTTPServer#readme"
+}
