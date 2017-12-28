@@ -1,9 +1,20 @@
 const http = require('http');
+const connect = require('connect');
+const bodyParser = require('body-parser');
 
-const handlerMethod = function(req, res) {
-	res.end("A simple response from a simple server");
-}
+const app = connect()
+	.use(bodyParser.urlencoded(
+		{extended:true}
+	))
+	.use(function(req,res) {
+		var parsedInfo = {};
 
-http.createServer(handlerMethod).listen(80, 'localhost');
+		parsedInfo.firstName = req.body.userFirstName;
+		parsedInfo.lastName = req.body.userLastName;
 
-console.log('HTTP Server listening on port 80');
+		res.end("User info parsed from form: " + parsedInfo.firstName + " " + parsedInfo.lastName)
+	});
+
+http.createServer(app).listen(80);
+
+console.log("Listening on port: 80");
