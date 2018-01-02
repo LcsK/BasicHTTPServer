@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/lucasaferrlopes/BasicHTTPServer#readme",
   "dependencies": {
+    "connect": "*",
+    "body-parser": "*",
     "request": "*"
   }
 }
