@@ -1,20 +1,26 @@
-const http = require('http');
 const connect = require('connect');
-const bodyParser = require('body-parser');
 
-const app = connect()
-	.use(bodyParser.urlencoded(
-		{extended:true}
-	))
+var app = connect()
 	.use(function(req,res) {
-		var parsedInfo = {};
+		if(req.url == "/hello") {
+			console.log("sending plain");
+			res.end("Hello from app");
+		}
+		else if(req.url == "/hello.json") {
+			console.log("sending json");
 
-		parsedInfo.firstName = req.body.userFirstName;
-		parsedInfo.lastName = req.body.userLastName;
+			var data = "Hello";
+			var jsonData = JSON.stringify(data);
 
-		res.end("User info parsed from form: " + parsedInfo.firstName + " " + parsedInfo.lastName)
-	});
+			res.setHeader('Content-Type','application/json');
+			res.end(jsonData);
+		}
+		else if(req.url == "/statusCodeDemo") {
+			console.log("sending 404 status code");
+			res.statusCode = 404;
+			res.end("Oops, could not find something");
+		}
+	})
+	.listen(80);
 
-http.createServer(app).listen(80);
-
-console.log("Listening on port: 80");
+console.log("Listening on port 80");
