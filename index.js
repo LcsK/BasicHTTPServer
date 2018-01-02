@@ -1,21 +1,26 @@
-const connect = require('connect');
+const express = require('express');
+const formidable = require('formidable');
+const app = express();
 
-const app = connect()
-	.use(function(req,res) {
-		if(req.url == '/hello') {
-			console.log("sending plain");
-			res.end("Hello from app");
-		}
-		else if(req.url == "/printRequestHeaders") {
-			var headers = req.headers;
-			console.log("echoing headers");
-			console.log(headers);
-			res.end("Headers printed in console");
-		}
-		else {
-			res.end("Nothing else matched");
-		}
-	})
-	.listen(80);
+app.use(function(req, res) {
+	if(req.method.toLowerCase() == "post") {
+		//configure the form
+		form.uploadDir = __dirname + '/uploads';
+		form.keepExtensions = true;
+		form.type = "multipart";
 
+		form.parse(req, function(err,fields,files) {
+			//Parse fields
+			var firstName = fields.userFirstName;
+			var lastName = fields.userLastName;
+			console.log("User info parsed from form: " + firstName + " " + lastName);
+			res.writeHead(200, {'content-type': 'text/plain'});
+			res.end("Form data recieved");
+		})
+	}
+});
+
+//Start server
+const port = 80;
+app.listen(port);
 console.log("Listening on port 80");

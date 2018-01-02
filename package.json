@@ -19,6 +19,8 @@
   "dependencies": {
     "connect": "*",
     "body-parser": "*",
-    "request": "*"
+    "request": "*",
+    "express": "*",
+    "formidable": "*"
   }
 }

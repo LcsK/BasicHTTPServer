@@ -1,38 +1,27 @@
-/*
-	Os arquivos "client.js" e "pipedFile.txt" devem ser criados em outra aplicação Node, separados do servidor.
-*/
-
-//Enviado requisições simples:
-
 var request = require('request');
 var fs = require('fs');
 
-request("http://localhost:80/hello", function(error, response, body) {
-	if(error) {
-		console.log(error);
-	}
-
-	//response.body
-	console.log(response.body);
-
-	//get status code
-	console.log(response.statusCode);
-
-	//see header
-	console.log(response.headers);
-})
-.pipe(fs.createWriteStream('Data/pipedFile.txt'));
-
-//Modificando nossas requisições antes de enviarmos elas:
-
-var options = {
-	url:"http://localhost:80/printRequestHeaders",
-	headers:{'X-DEMO-HEADER':"myDemoHeader"}
+var data = {
+	userFirstName:"John",
+	userLastName:"Doe",
+	myBuffer: new Buffer([1]), //Buffer for parsing file data
+	myFile: fs.createReadStream(__dirname + '/client/images/ibm.png') //read stream containing file data to pass
 }
+
+//request.post('http://localhost:80').form(data);
+//Também podemos utilizar o seguinte método:
+//request.post('http://localhost:80',{form:data});
+//Caso queiramos fazer algo com a resposta da requisição:
 
 var callback = function(error, response, body) {
 	if(error) console.log(error);
 	else console.log(body);
 }
 
-request(options,callback);
+//request.post('http://localhost:80',{form:data},callback);
+request.post({url:'http://localhost:80', formData}, function optionalCallback(err,response,body) {
+	if(err) {
+		return console.error('ops, there was a problem uploading');
+	}
+	console.log('File uploaded to server');
+})
