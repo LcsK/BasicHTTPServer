@@ -16,8 +16,5 @@
     "url": "https://github.com/lucasaferrlopes/BasicHTTPServer/issues"
   },
   "homepage": "https://github.com/lucasaferrlopes/BasicHTTPServer#readme",
-  "dependencies": {
-    "connect": "*",
-    "serve-static": "*"
-  }
+  "dependencies": {}
 }

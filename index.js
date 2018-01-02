@@ -1,13 +1,14 @@
-console.log("Serving Static Files");
+console.log("Parsing URLs");
 
-const connect = require('connect');
-const serveStatic = require('serve-static');
+const url = require('url');
 
-const app = connect()
-	.use(serveStatic('myPublicFolder'))
-	.use(function(req,res) {
-		res.end("Welcome to our demo app.");
-	})
-	.listen(80);
+const testUrl = "http://lucas:7654321@localhost:80/path/to/resource?resourceId=someValue&resourceType=someType";
 
-console.log("Listening on port 80");
+//var parsedUrlObject = url.parse(testUrl);
+var parsedUrlObject = url.parse(testUrl,true);
+
+console.log(parsedUrlObject);
+
+var urlString = url.format(parsedUrlObject);
+
+console.log(urlString);
