@@ -1,19 +1,13 @@
-console.log("Handling Web Server Events");
+console.log("Serving Static Files");
 
-const http = require('http');
+const connect = require('connect');
+const serveStatic = require('serve-static');
 
-const server = http.createServer();
+const app = connect()
+	.use(serveStatic('myPublicFolder'))
+	.use(function(req,res) {
+		res.end("Welcome to our demo app.");
+	})
+	.listen(80);
 
-server.on('request',function(req,res) {
-	console.log("Request received", req.headers);
-	res.end("Thanks, I got your request");
-});
-
-server.on('upgrade',function(req,socket,head){
-	console.log("Upgrade the connection to a web socket connection");
-});
-
-const port = 80;
-server.listen(port,function() {
-	console.log("HTTP Server Listening");
-});
+console.log("Listening on port 80");
