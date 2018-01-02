@@ -1,14 +1,16 @@
-console.log("Parsing URLs");
+console.log("Working with Query Strings");
 
-const url = require('url');
+const queryString = require('querystring');
 
-const testUrl = "http://lucas:7654321@localhost:80/path/to/resource?resourceId=someValue&resourceType=someType";
+const testBaseUrl = "http://localhost:80/path/to/resource";
 
-//var parsedUrlObject = url.parse(testUrl);
-var parsedUrlObject = url.parse(testUrl,true);
+var queryDataObject = {
+	'resourceID': '1',
+	'username': 'andy',
+}
 
-console.log(parsedUrlObject);
+//var stringFromObject = queryString.stringify(queryDataObject);
 
-var urlString = url.format(parsedUrlObject);
+var stringFromObject = queryString.stringify(queryDataObject,";",":");
 
-console.log(urlString);
+console.log(testBaseUrl + "?" + stringFromObject);
